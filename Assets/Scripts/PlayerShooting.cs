@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro; // TextMeshPro bileşeni için
 
 public class PlayerShooting : MonoBehaviour
 {
@@ -7,7 +8,11 @@ public class PlayerShooting : MonoBehaviour
     public int maxBullets = 10; // Maksimum mermi sayısı
     public float bulletSpeed = 20f; // Merminin hızı
 
-    public int currentBullets;
+    public int currentBullets; // Mevcut mermi sayısı
+    public TextMeshProUGUI bulletCountText; // UI'de mermi sayısını gösterecek TextMeshPro bileşeni
+
+    public Transform cameraHolder; // Kamera için bağımsız bir GameObject
+
     private int selectedBulletIndex = 0; // Seçili mermi türü
     private SpriteRenderer spriteRenderer;
     private Vector3 originalScale; // Karakterin orijinal ölçeği
@@ -17,6 +22,8 @@ public class PlayerShooting : MonoBehaviour
         currentBullets = maxBullets; // Başlangıçta maksimum mermi sayısı
         spriteRenderer = GetComponent<SpriteRenderer>(); // Karakterin SpriteRenderer bileşeni
         originalScale = transform.localScale; // Orijinal ölçeği sakla
+
+        UpdateBulletUI(); // UI'yi başlangıçta güncelle
     }
 
     void Update()
@@ -55,6 +62,12 @@ public class PlayerShooting : MonoBehaviour
             transform.localScale = originalScale; // Karakteri sağa çevir
             firePoint.right = direction; // FirePoint yönünü doğru ayarla
         }
+
+        // Kamera pozisyonunu güncelle
+        if (cameraHolder != null)
+        {
+            cameraHolder.position = new Vector3(transform.position.x, transform.position.y, cameraHolder.position.z);
+        }
     }
 
     void Shoot()
@@ -71,6 +84,7 @@ public class PlayerShooting : MonoBehaviour
         }
 
         currentBullets--; // Mermi sayısını azalt
+        UpdateBulletUI(); // UI'yi her atışta güncelle
     }
 
     void CycleBulletType()
@@ -82,8 +96,12 @@ public class PlayerShooting : MonoBehaviour
     {
         currentBullets = maxBullets; // Mermiyi tamamen doldur
         Debug.Log("Mermiler yenilendi!"); // Konsola bilgilendirme mesajı yazdır
+        UpdateBulletUI(); // UI'yi doldurma sırasında güncelle
+    }
+
+    void UpdateBulletUI()
+    {
+        // Mermi sayısını UI'de güncelle
+        bulletCountText.text = $"Bullets: {currentBullets}/{maxBullets}";
     }
 }
-
-
-
