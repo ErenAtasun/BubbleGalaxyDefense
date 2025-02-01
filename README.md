@@ -3,11 +3,11 @@
 
 # Team Member
 
-• Eren Atasun - Project Manager and developer
+• Eren Atasun - Project Manager and Developer
 
-• Gonca Arabacı - Arttist and developer
+• Gonca Arabacı - Artist and Developer
 
-• Koray Büyüksoy - developer
+• Koray Büyüksoy - Developer
 
 # Product Game Design Document
 
