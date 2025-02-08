@@ -46,6 +46,18 @@ public class Bullet : MonoBehaviour
             // Mermi çarptýktan sonra yok olsun
             Destroy(gameObject);
         }
+        else if (collision.CompareTag("Boss")) // Player tag'ini kontrol et
+        {
+            // Çarptýðý objede PlayerHealth component'i varsa hasar uygula
+            EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damage); // Player'a hasar ver
+            }
+            Debug.Log("DÜÞMANA HASAR VERÝLDÝ");
+            // Mermi çarptýktan sonra yok olsun
+            Destroy(gameObject);
+        }
     }
     void HitTarget()
     {
