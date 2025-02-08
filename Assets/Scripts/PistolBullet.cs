@@ -31,5 +31,17 @@ public class PistolBullet : MonoBehaviour
             // Mermi çarptýktan sonra yok olsun
             Destroy(gameObject);
         }
+        if (collision.CompareTag("Boss")) // Player tag'ini kontrol et
+        {
+            // Çarptýðý objede PlayerHealth component'i varsa hasar uygula
+            EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damage); // Player'a hasar ver
+            }
+
+            // Mermi çarptýktan sonra yok olsun
+            Destroy(gameObject);
+        }
     }
 }
